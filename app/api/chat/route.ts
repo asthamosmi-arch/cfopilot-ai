@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import type { CompanyFinancialProfile, ChatMessage } from '@/types/financial'
-import { callClaude, type ClaudeMessage } from '@/lib/claude/client'
+import { callGemini, type GeminiMessage } from '@/lib/gemini/client'
 import { buildCFOSystemPrompt, buildProfileSummary } from '@/lib/claude/prompts/cfo'
 
 export async function POST(req: NextRequest) {
@@ -16,22 +16,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Question is required' }, { status: 400 })
     }
 
-    // Build the CFO system prompt, grounded in the company's real financial data
     const systemPrompt = profile
       ? buildCFOSystemPrompt(buildProfileSummary(profile))
       : 'You are an experienced CFO advising a startup. No financial data has been uploaded yet — answer generally and suggest the user upload their financial data for personalized analysis.'
 
-    // Convert prior conversation history into Claude message format (cap to last 6 turns to keep context tight)
-    const recentHistory: ClaudeMessage[] = (history ?? [])
+    const recentHistory: GeminiMessage[] = (history ?? [])
       .slice(-6)
-      .map((m) => ({ role: m.role, content: m.content }))
+      .map((m) => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        content: m.content,
+      }))
 
-    const messages: ClaudeMessage[] = [
+    const messages: GeminiMessage[] = [
       ...recentHistory,
       { role: 'user', content: question },
     ]
 
-    const answer = await callClaude(messages, { system: systemPrompt, maxTokens: 1024 })
+    const answer = await callGemini(messages, { system: systemPrompt, maxTokens: 1024 })
 
     return NextResponse.json({
       success: true,
