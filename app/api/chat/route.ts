@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import type { CompanyFinancialProfile, ChatMessage } from '@/types/financial'
+import { callClaude, type ClaudeMessage } from '@/lib/claude/client'
+import { buildCFOSystemPrompt, buildProfileSummary } from '@/lib/claude/prompts/cfo'
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,22 +16,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Question is required' }, { status: 400 })
     }
 
-    // Phase 2: Replace with actual Claude streaming API call
-    // For now, return a structured placeholder that shows what the response will look like
-    const contextSummary = profile
-      ? `Company has $${(profile.totalExpenses / 1000).toFixed(0)}K in total expenses, ${profile.totalTransactions} transactions.`
-      : 'No financial data loaded yet.'
+    // Build the CFO system prompt, grounded in the company's real financial data
+    const systemPrompt = profile
+      ? buildCFOSystemPrompt(buildProfileSummary(profile))
+      : 'You are an experienced CFO advising a startup. No financial data has been uploaded yet — answer generally and suggest the user upload their financial data for personalized analysis.'
+
+    // Convert prior conversation history into Claude message format (cap to last 6 turns to keep context tight)
+    const recentHistory: ClaudeMessage[] = (history ?? [])
+      .slice(-6)
+      .map((m) => ({ role: m.role, content: m.content }))
+
+    const messages: ClaudeMessage[] = [
+      ...recentHistory,
+      { role: 'user', content: question },
+    ]
+
+    const answer = await callClaude(messages, { system: systemPrompt, maxTokens: 1024 })
 
     return NextResponse.json({
       success: true,
-      answer: `[Claude CFO Agent — Phase 2 Integration Pending]\n\nContext received: ${contextSummary}\nQuestion: "${question}"\n\nOnce the Claude API is connected in Phase 2, I will analyze your complete financial data and provide CFO-grade insights here.`,
-      phase: 'placeholder',
+      answer,
     })
 
   } catch (err) {
     console.error('[Chat API]', err)
+    const message = err instanceof Error ? err.message : 'Chat failed'
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Chat failed' },
+      { error: message, success: false },
       { status: 500 }
     )
   }
