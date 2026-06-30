@@ -1,0 +1,38 @@
+Date,Vendor,Category,Amount,Currency,Description
+2026-01-01,Amazon Web Services,Cloud & Infrastructure,52000,USD,Monthly compute & storage
+2026-01-05,Google Ads,Marketing & Ads,31000,USD,Q1 campaign spend
+2026-01-08,Slack,Software & SaaS,4200,USD,Team communication - 120 seats
+2026-01-10,WeWork,Operations,18500,USD,Office space rental
+2026-01-12,Stripe,Software & SaaS,1800,USD,Payment processing fees
+2026-01-15,LinkedIn Ads,Marketing & Ads,12000,USD,Talent acquisition campaigns
+2026-01-18,GitHub,Software & SaaS,2400,USD,Enterprise plan - 80 devs
+2026-01-20,Figma,Software & SaaS,960,USD,Design team licenses
+2026-01-22,Zoom,Software & SaaS,1200,USD,Video conferencing
+2026-01-25,DataDog,Cloud & Infrastructure,8400,USD,Monitoring & observability
+2026-01-28,Salesforce,Software & SaaS,14000,USD,CRM annual contract Q1 installment
+2026-01-30,Payroll Jan,Payroll & HR,185000,USD,Full team payroll
+2026-02-01,Amazon Web Services,Cloud & Infrastructure,58000,USD,Monthly compute - traffic spike
+2026-02-05,Google Ads,Marketing & Ads,35000,USD,Increased ad spend
+2026-02-08,Slack,Software & SaaS,4200,USD,Team communication - 120 seats
+2026-02-10,WeWork,Operations,18500,USD,Office space rental
+2026-02-12,Notion,Software & SaaS,800,USD,Team workspace
+2026-02-14,Twilio,Software & SaaS,3200,USD,SMS & communications API
+2026-02-18,GitHub,Software & SaaS,2400,USD,Enterprise plan
+2026-02-20,Vercel,Cloud & Infrastructure,6200,USD,Frontend hosting & edge functions
+2026-02-22,HubSpot,Marketing & Ads,5600,USD,Marketing automation
+2026-02-25,DataDog,Cloud & Infrastructure,9100,USD,Monitoring - increased usage
+2026-02-28,Payroll Feb,Payroll & HR,185000,USD,Full team payroll
+2026-02-28,Wilson & Partners,Legal & Finance,8500,USD,Legal counsel - contracts
+2026-03-01,Amazon Web Services,Cloud & Infrastructure,55000,USD,Monthly compute
+2026-03-03,Google Ads,Marketing & Ads,28000,USD,Optimized campaign
+2026-03-05,Slack,Software & SaaS,4200,USD,Team communication
+2026-03-07,Mixpanel,Software & SaaS,2100,USD,Product analytics
+2026-03-10,WeWork,Operations,18500,USD,Office space rental
+2026-03-12,Stripe,Software & SaaS,2100,USD,Payment processing
+2026-03-14,Intercom,Software & SaaS,3800,USD,Customer support platform
+2026-03-18,GitHub,Software & SaaS,2400,USD,Enterprise plan
+2026-03-20,AWS - Duplicate,Cloud & Infrastructure,55000,USD,Duplicate invoice - needs review
+2026-03-22,DataDog,Cloud & Infrastructure,8800,USD,Monitoring
+2026-03-25,Segment,Software & SaaS,4500,USD,Customer data platform
+2026-03-28,Payroll Mar,Payroll & HR,192000,USD,Full team payroll + 2 new hires
+2026-03-30,Deloitte,Legal & Finance,15000,USD,Q1 financial audit
